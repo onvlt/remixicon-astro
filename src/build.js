@@ -1,6 +1,6 @@
-import { readFile, writeFile, mkdir, glob } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import * as fs from "node:fs/promises";
 import * as path from "node:path";
+import { existsSync } from "node:fs";
 
 const DIST_DIR = "dist";
 
@@ -32,16 +32,31 @@ ${body}`;
 }
 
 async function run() {
-	if (!existsSync(DIST_DIR)) {
-		await mkdir(DIST_DIR);
-	}
+	await fs.rm(DIST_DIR, { recursive: true, force: true });
+	await fs.mkdir(DIST_DIR);
 
-	for await (const entry of glob("node_modules/remixicon/icons/*/*.svg")) {
-		const svg = await readFile(entry);
+	const indexLines = [];
+
+	for await (const entry of fs.glob("node_modules/remixicon/icons/*/*.svg")) {
+		const svg = await fs.readFile(entry);
 		const astro = transformSvgToAstroComponent(svg.toString());
 		const componentName = toPascalCase(path.basename(entry, ".svg"));
-		await writeFile(path.join(DIST_DIR, `${componentName}.astro`), astro);
+		await fs.writeFile(path.join(DIST_DIR, `${componentName}.astro`), astro);
+		indexLines.push(
+			`export { default as ${componentName} } from "./${componentName}.astro"`,
+		);
 	}
+
+	await fs.writeFile(
+		path.join(DIST_DIR, "index.js"),
+		indexLines.join("\n") + "\n",
+	);
 }
 
-run();
+try {
+	await run();
+	process.exit(0);
+} catch (e) {
+	console.error("Error occured while building icons", e);
+	process.exit(1);
+}
