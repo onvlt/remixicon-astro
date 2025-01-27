@@ -3,6 +3,9 @@
 	"type": "module",
 	"version": "0.0.1",
 	"description": "Remix icons as Astro components",
+	"main": "./dist/index.js",
+	"homepage": "https://github.com/onvlt/remixicon-astro",
+	"repository": "https://github.com/onvlt/remixicon-astro.git",
 	"scripts": {
 		"prepare": "node src/build.js",
 		"build": "node src/build.js"
@@ -12,5 +15,14 @@
 	"devDependencies": {
 		"prettier": "^3.4.2",
 		"remixicon": "^4.6.0"
-	}
+	},
+	"exports": {
+		".": "./dist/index.js",
+		"./*": "./dist/*.astro"
+	},
+	"keywords": [
+		"astro",
+		"remixicon",
+		"icons"
+	]
 }
