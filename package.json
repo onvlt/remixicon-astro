@@ -1,0 +1,16 @@
+{
+	"name": "remix-icons-astro",
+	"type": "module",
+	"version": "0.0.1",
+	"description": "Remix icons as Astro components",
+	"scripts": {
+		"prepare": "npm run build",
+		"build": "npm run clean && node src/build.js",
+		"clean": "rm -rf dist/"
+	},
+	"author": "Ondřej Nývlt",
+	"license": "MIT",
+	"devDependencies": {
+		"remixicon": "^4.6.0"
+	}
+}
