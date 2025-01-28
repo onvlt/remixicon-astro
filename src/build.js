@@ -44,7 +44,9 @@ async function run() {
 		indexLines.push(`export { default as ${componentName} } from "./${componentName}.astro"`);
 	}
 
-	await fs.writeFile(path.join(DIST_DIR, "index.js"), indexLines.join("\n") + "\n");
+	const indexFile = indexLines.join("\n") + "\n";
+	await fs.writeFile(path.join(DIST_DIR, "index.js"), indexFile);
+	await fs.writeFile(path.join(DIST_DIR, "index.d.ts"), indexFile);
 }
 
 try {
