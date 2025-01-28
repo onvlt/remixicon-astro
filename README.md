@@ -14,7 +14,7 @@ Import icon into your Astro component.
 
 ```astro
 ---
-import { Download } from 'remixicon-astro'
+import { Download } from '@onvlt/remixicon-astro/Download'
 ---
 
 <button>
