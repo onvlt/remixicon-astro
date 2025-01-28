@@ -48,23 +48,14 @@ export type Props = IconRootProps;
 
 async function run() {
 	console.log("Generating Astro components...");
-	await fs.rm(DIST_DIR, { recursive: true, force: true });
-	await fs.mkdir(DIST_DIR);
-	await fs.cp("./src/_IconRoot.astro", path.join(DIST_DIR, "_IconRoot.astro"));
-
-	const indexLines = [];
+	await fs.rm(path.join(DIST_DIR, "[!{_}]*.astro"), { recursive: true, force: true });
 
 	for await (const entry of fs.glob("node_modules/remixicon/icons/*/*.svg")) {
 		const svg = await fs.readFile(entry);
 		const astro = transformSvgToAstroComponent(svg.toString());
 		const componentName = toComponentName(path.basename(entry, ".svg"));
 		await fs.writeFile(path.join(DIST_DIR, `${componentName}.astro`), astro);
-		indexLines.push(`export { default as ${componentName} } from "./${componentName}.astro"`);
 	}
-
-	const indexFile = indexLines.join(";\n") + ";\n";
-	await fs.writeFile(path.join(DIST_DIR, "index.js"), indexFile);
-	await fs.writeFile(path.join(DIST_DIR, "index.d.ts"), indexFile);
 }
 
 try {

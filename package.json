@@ -1,13 +1,12 @@
 {
-	"name": "remixicon-astro",
+	"name": "@onvlt/remixicon-astro",
 	"type": "module",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Remix icons as Astro components",
-	"main": "./dist/index.js",
 	"homepage": "https://github.com/onvlt/remixicon-astro",
 	"repository": "https://github.com/onvlt/remixicon-astro.git",
 	"scripts": {
-		"build": "node src/build.js && npm run format",
+		"build": "node ./build.js && npm run format",
 		"format": "prettier icons --write --log-level warn"
 	},
 	"author": "Ondřej Nývlt",
@@ -18,10 +17,9 @@
 		"remixicon": "^4.6.0"
 	},
 	"peerDependencies": {
-		"astro": "latest"
+		"astro": "*"
 	},
 	"exports": {
-		".": "./icons/index.js",
 		"./*": "./icons/*.astro"
 	},
 	"engines": {
