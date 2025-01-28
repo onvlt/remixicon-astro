@@ -24,6 +24,9 @@
 		".": "./icons/index.js",
 		"./*": "./icons/*.astro"
 	},
+	"engines": {
+		"node": ">=22.6.0"
+	},
 	"keywords": [
 		"astro",
 		"remixicon",
