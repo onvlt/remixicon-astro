@@ -23,7 +23,7 @@ function transformSvgToAstroComponent(svg) {
 	return `---
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = HTMLAttributes<'svg'>;
+export type Props = HTMLAttributes<'svg'>;
 ---
 
 ${body}`;
