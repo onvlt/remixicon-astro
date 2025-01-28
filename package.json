@@ -16,6 +16,9 @@
 		"prettier": "^3.4.2",
 		"remixicon": "^4.6.0"
 	},
+	"peerDependencies": {
+		"astro": "latest"
+	},
 	"exports": {
 		".": "./dist/index.js",
 		"./*": "./dist/*.astro"
