@@ -1,9 +1,9 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import { default as IconRoot, type Props as IconRootProps } from "./_IconRoot.astro";
 
-export type Props = HTMLAttributes<"svg">;
+export type Props = IconRootProps;
 ---
 
-<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" {...Astro.props}>
+<IconRoot {...Astro.props}>
 	<path d="M18 9 12 3 6 9H18ZM18 15 12 21 6 15H18Z"></path>
-</svg>
+</IconRoot>

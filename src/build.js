@@ -30,20 +30,27 @@ function toComponentName(str) {
  * @returns {string}
  */
 function transformSvgToAstroComponent(svg) {
-	const body = svg.replace(/^<svg (.+?)>/, "<svg $1 {...Astro.props}>").replaceAll("><", ">\n<");
+	const body = svg
+		.trim()
+		.replace(/^<svg .+?>(.+)<\/svg>$/, "$1")
+		.replaceAll("><", ">\n<");
 	return `---
-import type { HTMLAttributes } from 'astro/types';
+import { default as IconRoot, type Props as IconRootProps } from './_IconRoot.astro';
 
-export type Props = HTMLAttributes<'svg'>;
+export type Props = IconRootProps;
 ---
 
-${body}`;
+<IconRoot {...Astro.props}>
+	${body}
+</IconRoot>
+`;
 }
 
 async function run() {
 	console.log("Generating Astro components...");
 	await fs.rm(DIST_DIR, { recursive: true, force: true });
 	await fs.mkdir(DIST_DIR);
+	await fs.cp("./src/_IconRoot.astro", path.join(DIST_DIR, "_IconRoot.astro"));
 
 	const indexLines = [];
 
