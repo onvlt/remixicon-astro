@@ -15,6 +15,17 @@ function toPascalCase(str) {
 }
 
 /**
+ * @param {string} str
+ * @returns {string}
+ */
+function toComponentName(str) {
+	// JavaScript identifiers must not start with digit,
+	// so we prepend 'icon-' prefix to the component name.
+	const name = /^\d+/.test(str) ? `icon-${str}` : str;
+	return toPascalCase(name);
+}
+
+/**
  * @param {string} svg
  * @returns {string}
  */
@@ -39,12 +50,12 @@ async function run() {
 	for await (const entry of fs.glob("node_modules/remixicon/icons/*/*.svg")) {
 		const svg = await fs.readFile(entry);
 		const astro = transformSvgToAstroComponent(svg.toString());
-		const componentName = toPascalCase(path.basename(entry, ".svg"));
+		const componentName = toComponentName(path.basename(entry, ".svg"));
 		await fs.writeFile(path.join(DIST_DIR, `${componentName}.astro`), astro);
 		indexLines.push(`export { default as ${componentName} } from "./${componentName}.astro"`);
 	}
 
-	const indexFile = indexLines.join("\n") + "\n";
+	const indexFile = indexLines.join(";\n") + ";\n";
 	await fs.writeFile(path.join(DIST_DIR, "index.js"), indexFile);
 	await fs.writeFile(path.join(DIST_DIR, "index.d.ts"), indexFile);
 }
