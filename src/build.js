@@ -1,8 +1,7 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { existsSync } from "node:fs";
 
-const DIST_DIR = "dist";
+const DIST_DIR = "icons";
 
 /**
  * @param {string} str
@@ -20,18 +19,18 @@ function toPascalCase(str) {
  * @returns {string}
  */
 function transformSvgToAstroComponent(svg) {
-	const body = svg
-		.replace(/^<svg (.+?)>/, "<svg $1 {...Astro.props}>")
-		.replaceAll("><", ">\n<");
+	const body = svg.replace(/^<svg (.+?)>/, "<svg $1 {...Astro.props}>").replaceAll("><", ">\n<");
 	return `---
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'svg'>;
 ---
+
 ${body}`;
 }
 
 async function run() {
+	console.log("Generating Astro components...");
 	await fs.rm(DIST_DIR, { recursive: true, force: true });
 	await fs.mkdir(DIST_DIR);
 
@@ -42,15 +41,10 @@ async function run() {
 		const astro = transformSvgToAstroComponent(svg.toString());
 		const componentName = toPascalCase(path.basename(entry, ".svg"));
 		await fs.writeFile(path.join(DIST_DIR, `${componentName}.astro`), astro);
-		indexLines.push(
-			`export { default as ${componentName} } from "./${componentName}.astro"`,
-		);
+		indexLines.push(`export { default as ${componentName} } from "./${componentName}.astro"`);
 	}
 
-	await fs.writeFile(
-		path.join(DIST_DIR, "index.js"),
-		indexLines.join("\n") + "\n",
-	);
+	await fs.writeFile(path.join(DIST_DIR, "index.js"), indexLines.join("\n") + "\n");
 }
 
 try {

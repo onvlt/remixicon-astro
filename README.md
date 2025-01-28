@@ -2,20 +2,6 @@
 
 Distribution of [Remix icon](https://remixicon.com/) library for your Astro components. Individual icons can be imported as Astro components.
 
-## Installation
-
-```
-npm i remixicon-astro
-```
-
-```
-pnpm add remixicon-astro
-```
-
-```
-yarn add remixicon-astro
-```
-
 ## Usage
 
 Import icon into your Astro component.
