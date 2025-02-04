@@ -6,15 +6,17 @@
 	"homepage": "https://github.com/onvlt/remixicon-astro",
 	"repository": "https://github.com/onvlt/remixicon-astro.git",
 	"scripts": {
-		"build": "node ./build.js && npm run format",
+		"build": "node ./build.ts && npm run format",
 		"format": "prettier icons --write --log-level warn"
 	},
 	"author": "Ondřej Nývlt",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/node": "^22.13.1",
 		"prettier": "^3.4.2",
 		"prettier-plugin-astro": "^0.14.1",
-		"remixicon": "^4.6.0"
+		"remixicon": "^4.6.0",
+		"typescript": "^5.7.3"
 	},
 	"peerDependencies": {
 		"astro": "*"
@@ -23,7 +25,7 @@
 		"./*": "./icons/*.astro"
 	},
 	"engines": {
-		"node": ">=22.6.0"
+		"node": ">=23.7.0"
 	},
 	"keywords": [
 		"astro",

@@ -3,33 +3,22 @@ import * as path from "node:path";
 
 const DIST_DIR = "icons";
 
-/**
- * @param {string} str
- * @returns {string}
- */
-function toPascalCase(str) {
-	return str
-		.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-		.map((x) => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase())
-		.join("");
+function toPascalCase(str: string): string {
+	const matches = str.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g);
+	if (!matches) {
+		return str;
+	}
+	return matches.map((x) => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase()).join("");
 }
 
-/**
- * @param {string} str
- * @returns {string}
- */
-function toComponentName(str) {
-	// JavaScript identifiers must not start with digit,
-	// so we prepend 'icon-' prefix to the component name.
+function toComponentName(str: string): string {
+	// if icon name starts with number, we need to add some prefix
+	// (I chose "icon-" prefix), because JavaScript identifiers cannot start with digit.
 	const name = /^\d+/.test(str) ? `icon-${str}` : str;
 	return toPascalCase(name);
 }
 
-/**
- * @param {string} svg
- * @returns {string}
- */
-function transformSvgToAstroComponent(svg) {
+function transformSvgToAstroComponent(svg: string): string {
 	const body = svg
 		.trim()
 		.replace(/^<svg .+?>(.+)<\/svg>$/, "$1")
