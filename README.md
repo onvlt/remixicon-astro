@@ -28,6 +28,6 @@ If you want to rebuild Astro components by yourself, you can clone this reposito
 
 ## Attributions
 
-Thanks to the authors of the excellent [Remix Icon](https://lucide.dev/) library.
+Thanks to the authors of the excellent [Remix Icon](https://remixicon.com/) library.
 
 This package was inspired by [dzeiocom/lucide-astro](https://github.com/dzeiocom/lucide-astro).
