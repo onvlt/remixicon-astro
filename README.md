@@ -1,3 +1,25 @@
+# ⚠️ Archived
+
+This package is no logner maintained. Since `astro@5.7.0`, you can directly import SVG files as Astro components. Therefore I encourage you to use official [remixicon package](https://www.npmjs.com/package/remixicon) instead, which distributes SVG files you can import directly as they will be turned to Astro components automatically.
+
+Usage example:
+
+```sh
+npm i remixicon
+```
+
+Then in your Astro component:
+
+```astro
+---
+import IconArrowDownLine from "remixicon/icons/Arrows/arrow-down-line.svg";
+---
+
+<IconArrowDownLine />
+```
+
+---
+
 # [Remix Icons](https://remixicon.com/) for Astro
 
 Distribution of [Remix icon](https://remixicon.com/) library for your Astro components. Individual icons can be imported as Astro components.
@@ -5,7 +27,7 @@ Distribution of [Remix icon](https://remixicon.com/) library for your Astro comp
 ## Installation
 
 ```
-npm i @onvlt/remixicon-astro
+npm i https://github.com/onvlt/remixicon-astro
 ```
 
 ## Usage
